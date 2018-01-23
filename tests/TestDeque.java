@@ -1,8 +1,5 @@
 import java.lang.reflect.InvocationTargetException;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.NoSuchElementException;
-import java.util.Random;
+import java.util.*;
 
 import org.junit.Assert;
 import org.junit.Before;
@@ -59,8 +56,6 @@ public class TestDeque {
         Assert.assertTrue(deque.isEmpty());
         Assert.assertEquals(deque.size(), 0);
     }
-
-//в тестах с Foreach одновременно тестируется итератор
 
     @Test
     public void test02_PushFront() {
@@ -133,7 +128,6 @@ public class TestDeque {
             deque.pushBack(randomArray[i]);
         }
         for (int i = 9; i >= 0; i--) {
-            System.out.println(randomArray[i]);
             Assert.assertEquals(randomArray[i], (int)deque.popBack());
         }
     }
@@ -145,7 +139,6 @@ public class TestDeque {
             deque.pushBack(randomArray[i]);
         }
         for (int i = 0; i < 10; i++) {
-            System.out.println(randomArray[i]);
             Assert.assertEquals(randomArray[i], (int)deque.popFront());
         }
     }
@@ -168,6 +161,18 @@ public class TestDeque {
         }
         catch (NoSuchElementException e) {
         }
+    }
+
+    @Test
+    public void test014_Iterator() {
+        int[] randomArray = getRandomArray(10);
+        for (int i = 0; i < 10; i++) {
+            deque.pushBack(randomArray[i]);
+        }
+        Iterator<Integer> iterator = deque.iterator();
+        int i = 0;
+        while (iterator.hasNext())
+            Assert.assertEquals(randomArray[i++], (int)iterator.next());
     }
 
 }
